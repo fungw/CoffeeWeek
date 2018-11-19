@@ -62,14 +62,8 @@ class App extends Component {
   filterSearchAllUsers = () => {
     const { searchField, response } = this.state;
     let searchQuery = searchField.split(':');
-
     return response.filter(user => {
-      if (searchQuery.length === 2) {
-        return (user[searchQuery[0]].toLowerCase().includes(searchQuery[1].toLowerCase()));
-      } else {
-        return (user.name.first.toLowerCase().includes(searchField.toLowerCase())) 
-          || (user.name.last.toLowerCase().includes(searchField.toLowerCase()));
-      }
+      return this.searchFilter(searchQuery, user, searchField);
     });
   }
 
@@ -80,18 +74,22 @@ class App extends Component {
     let userPair;
     for (let i=0; i<response.length; i++) {
       userPair = response[i].filter(user => {
-        if (searchQuery.length === 2) {
-          return (user[searchQuery[0]].toLowerCase().includes(searchQuery[1].toLowerCase()));
-        } else {
-          return (user.name.first.toLowerCase().includes(searchField.toLowerCase())) 
-            || (user.name.last.toLowerCase().includes(searchField.toLowerCase()));
-        }
+        return this.searchFilter(searchQuery, user, searchField);
       });
       if (userPair.length !== 0) {
         filteredUsers.push(response[i]);
       }
     }
     return filteredUsers;
+  }
+
+  searchFilter = (searchQuery, user, searchField) => {
+    if ((searchQuery.length === 2) && (user[searchQuery[0]]) && (searchQuery[1])) {
+      return (user[searchQuery[0]].toLowerCase().includes(searchQuery[1].toLowerCase()));
+    } else {
+      return (user.name.first.toLowerCase().includes(searchField.toLowerCase())) 
+        || (user.name.last.toLowerCase().includes(searchField.toLowerCase()));
+    }
   }
 
   filterShowOptions = (userList) => {

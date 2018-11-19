@@ -2,11 +2,11 @@ import React from 'react';
 
 const Toolbar = ({ checkboxChange, radioChange, searchChange, filter }) => {
   return (
-    <div id="flex flex-row">
-      <div className="pa2 flex flex-row flex-grow-1 mh6">
-        <h3 className="flex-grow-1 b">Show filter:</h3>
+    <div className="toolbar">
+      <div className="flex flex-column flex-grow-1">
+        {/* <h3 className="flex-grow-1 b">Show filter:</h3> */}
         <form className="flex flex-row flex-grow-1">
-          <div className="flex-grow-1">
+          {/* <div className="flex-grow-1">
             <div className="flex flex-column">
               <div className="flex-grow-1 tl">
                 <input className="mr2" type="radio" id="show-all" name="mainFilter" value="show-all" onChange={radioChange}/>
@@ -17,39 +17,52 @@ const Toolbar = ({ checkboxChange, radioChange, searchChange, filter }) => {
                 <label className="lh-copy">Show Coffee List</label>
               </div>
             </div>
-          </div>
+          </div> */}
           <div className="flex-grow-1">
-            <legend className="b">Department</legend>
+            <legend className="b tl">Show</legend>
             <div className="flex flex-row">
-              <div className="flex-grow-1">
-                <input className="mr2" type="checkbox" id="engineering" value="department.engineering" checked={filter['department']['engineering']} onChange={checkboxChange}/>
-                <label className="lh-copy">Engineering</label>
+              <div className="radioGroup">
+                <input className="mr2" type="radio" id="show-all" name="mainFilter" value="show-all" onChange={radioChange}/>
+                <label className="lh-copy" htmlFor="show-all">All Users</label>
               </div>
-              <div className="flex-grow-1">
-                <input className="mr2" type="checkbox" id="humanResources" value="department.humanResources" checked={filter['department']['humanResources']} onChange={checkboxChange}/>
-                <label className="lh-copy">Human Resources</label>
+              <div className="radioGroup">
+                <input className="mr2" type="radio" id="show-coffee" name="mainFilter" value="show-coffee" defaultChecked={true} onChange={radioChange}/>
+                <label className="lh-copy" htmlFor="show-coffee">Coffee List</label>
               </div>
             </div>
           </div>
           <div className="flex-grow-1">
-            <legend className="b">Location</legend>
+            <legend className="b tl">Department</legend>
             <div className="flex flex-row">
-              <div className="flex-grow-1">
-                <input className="mr2" type="checkbox" id="dublin" value="location.dub" checked={filter['location']['dub']} onChange={checkboxChange}/>
-                <label className="lh-copy">Dublin</label>
+              <div className="checkboxGroup">
+                <input className="mr2" type="checkbox" id="engineering" value="department.engineering" checked={filter['department']['engineering']} onChange={checkboxChange}/>
+                <label className="lh-copy" htmlFor="engineering">Engineering</label>
               </div>
-              <div className="flex-grow-1">
+              <div className="checkboxGroup">
+                <input className="mr2" type="checkbox" id="humanResources" value="department.humanResources" checked={filter['department']['humanResources']} onChange={checkboxChange}/>
+                <label className="lh-copy" htmlFor="humanResources">Human Resources</label>
+              </div>
+            </div>
+          </div>
+          <div className="flex-grow-1">
+            <legend className="b tl">Location</legend>
+            <div className="flex flex-row">
+              <div className="checkboxGroup">
+                <input className="mr2" type="checkbox" id="dublin" value="location.dub" checked={filter['location']['dub']} onChange={checkboxChange}/>
+                <label className="lh-copy" htmlFor="dublin">Dublin</label>
+              </div>
+              <div className="checkboxGroup">
                 <input className="mr2" type="checkbox" id="newYork" value="location.ny" checked={filter['location']['ny']} onChange={checkboxChange}/>
-                <label className="lh-copy">New York</label>
+                <label className="lh-copy" htmlFor="newYork">New York</label>
               </div>
             </div>
           </div>
         </form>
-        <div className="pa2 flex-grow-1">
-            <input 
-              className="pa3 ba b--green bg-lightest-blue flex-grow-1"
+        <div className="flex-grow-1" id="searchBox">
+            <input
+              className="pa3 ba flex-grow-1"
               type="search" 
-              placeholder="motto:emulation" 
+              placeholder="search for colleagues by name, department, office, phone or motto e.g. motto:emulation" 
               onChange={searchChange}
             />
           </div>

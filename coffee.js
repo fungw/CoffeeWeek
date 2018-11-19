@@ -109,11 +109,15 @@ findUser = function(allUsersList, singleUser) {
 generateCoffeeList = function(users) {
   users = users.users;
   shuffle(users);
-  return users.reduce(function(result, value, index, array) {
-    if (index % 2 === 0)
-      result.push(array.slice(index, index + 2));
-    return result;
-  }, []);
+  let results = [];
+  for (let i=0; i<users.length; i++) {
+    if (i === users.length-1) {
+      results.push([users[users.length-1], users[0]]);
+    } else {
+      results.push(users.slice(i, i + 2));
+    }
+  }
+  return results;
 }
 
 /**

@@ -1,28 +1,391 @@
-.header
-  display: flex
-  flex-direction: row
-  .title
-    font-family: 'Helvetica'
-    font-weight: 600
-  #divider
-    font-weight: 300
-    margin-top: 25px
-  #weekIndicator
-    font-weight: 300
+$hbc-primary-color: #001e3d;
+$hbc-primary-color-rgba: rgba(0, 39, 76, 0.2)
+$hbc-secondary-color: #265887;
+$headerHeight: 60px;
+$mainSideMargins: 100px;
 
-.userCard
-  h2
-    font-size: 22px
-    margin-bottom: 5px
+// iPhone 5
+@media (min-width: 320px) and (max-width: 480px)
+  html, body
+    font-size: 3vw
+    width: 100vw
 
-  .motto
-    font-size: 14px
-    font-style: italic
-    line-height: 22px
-    margin-top: 0px
+    .headerLine
+      background-color: $hbc-primary-color
+      display: flex
+      flex-direction: row
+      height: $headerHeight
+      img
+        height: $headerHeight
+        width: auto
+      #weekIndicator
+        color: white
+        line-height: 2.5em
+        margin-right: 5vw
+        font-weight: 300
+        text-align: right
+        width: 100%
+        b
+          font-weight: 600
 
-.roboHashImage
-  height: 200px
+    .header
+      margin-top: 5vw
+      margin-left: 5vw
+      margin-right: 5vw
+      width: auto
+      > h1
+        width: 100%
+      > p
+        line-height: 5vw
+      
+    .cardContent
+      overflow-y: scroll
+      height: 32vh
 
-.flex-grow-1
-  flex-grow: 1
+    .toolbar
+      bottom: 0
+      margin-left: 2vw
+      margin-right: 2vw
+      position: fixed
+      width: 96vw
+      > div
+        > form
+          flex-wrap: wrap
+          margin-left: 5vw
+          margin-bottom: 2vw
+          > div
+            font-size: 2vw
+            margin-bottom: 2vw
+            legend
+              margin-bottom: 2vw
+            div
+              font-size: 2vw
+              div.checkboxGroup, div.radioGroup
+                margin-right: 2vw
+                margin-top: 2vw
+                margin-bottom: 2vw
+              div.radioGroup
+                margin-right: 0px
+              input
+                display: none
+              input[type=radio]:checked + label
+                background-color: $hbc-primary-color
+                border: 1px solid $hbc-primary-color
+                color: white
+                padding: 2vw
+              input[type=checkbox]:checked + label
+                background-color: $hbc-secondary-color
+                border-radius: 25px
+                color: white
+                padding: 2vw
+              input[type=radio]:not(:checked) + label
+                border: 1px solid $hbc-primary-color
+                padding: 2vw
+              input[type=checkbox]:not(:checked) + label
+                border: 1px solid $hbc-secondary-color
+                border-radius: 25px
+                padding: 2vw
+              label
+                cursor: pointer
+        div#searchBox
+          border: 1px solid $hbc-primary-color-rgba
+          font-size: 2vw
+          margin-bottom: 5vw
+          margin-left: 5vw
+          margin-right: 5vw
+          width: auto
+          input
+            background-color: $hbc-primary-color-rgba
+            border: 1px solid rgba(0, 39, 76, 0.4)
+            color: $hbc-primary-color
+            width: 100%
+          input::placeholder
+            color: $hbc-primary-color
+            opacity: 0.5
+            font-style: italic
+
+    .userCard
+      padding-bottom: 10px
+      h2
+        font-size: 22px
+        margin-bottom: 5px
+      .motto
+        font-style: italic
+      p
+        font-size: 14px
+        margin-bottom: 10px
+        margin-top: 10px
+
+    #cardList
+      display: flex
+      flex-wrap: wrap
+      flex-direction: row
+      > div.singleCard
+        background-color: $hbc-primary-color
+        color: white
+        > img
+          height: 15vh
+        .userCard
+            padding: 3vw
+            > h2
+              font-size: 4vw
+            > p
+              font-size: 3vw
+        
+    #cardList
+      font-size: 2vw
+      margin-left: 5vw
+      margin-right: 5vw
+      > div
+        padding: 5px
+        width: 50%
+        div.giverLabel, div.receiverLabel
+          background-color: $hbc-secondary-color
+          color: white
+          left: 0px
+          padding: 10px
+          position: absolute
+          top: 0px
+      .cardPair
+        display: flex
+        flex-direction: row
+        height: 40vh
+        width: 100%
+        div.giverCard, div.receiverCard
+          min-height: initial
+          > img
+            height: 15vh
+          .userCard
+            padding: 3vw
+            > h2
+              font-size: 4vw
+            > p
+              font-size: 3vw
+
+// Galaxy
+@media (min-width: 350px) and (max-width: 480px) and (min-height: 600px) and (max-height: 750px)
+  html, body
+    .cardContent
+      overflow-y: scroll
+      height: 35vh
+
+// iPhone X
+@media (min-width: 320px) and (max-width: 400px) and (min-height: 800px) and (max-height: 850px)
+  html, body
+    .cardContent
+      overflow-y: scroll
+      height: 48vh
+
+// Pixel XL
+@media (min-width: 350px) and (max-width: 430px) and (min-height: 800px) and (max-height: 850px)
+  html, body
+    .cardContent
+      overflow-y: scroll
+      height: 45vh
+
+// Desktop
+@media (min-width: 768px)
+  html, body
+    background-color: white
+    height: 100%
+    width: 100%
+
+  .headerLine
+    background-color: $hbc-primary-color
+    display: flex
+    flex-direction: row
+    height: $headerHeight
+    img
+      height: $headerHeight
+      margin-left: $mainSideMargins
+      width: auto
+    #weekIndicator
+      color: white
+      line-height: 1.5em
+      margin-right: $mainSideMargins
+      font-weight: 300
+      text-align: right
+      width: 100%
+      b
+        font-weight: 600
+    
+  .header
+    margin-left: $mainSideMargins
+    margin-right: $mainSideMargins
+    margin-top: $mainSideMargins
+    .title
+      font-family: 'Helvetica'
+      font-weight: 600
+      color: $hbc-primary-color
+    #divider
+      font-weight: 300
+      margin-top: 25px
+    p
+      line-height: 26px
+      margin-bottom: 0px
+      width: 75%
+      b
+        color: $hbc-primary-color
+
+  .cardContent
+    overflow-y: scroll
+    height: 725px
+
+  .toolbar
+    margin: 30px 0px
+    > div
+      margin-left: $mainSideMargins
+      margin-right: $mainSideMargins
+      margin-top: 16px
+      form
+        margin-bottom: 25px
+        > div
+          legend
+            margin-bottom: 10px
+          div
+            div.checkboxGroup, div.radioGroup
+              margin-right: 15px
+              margin-top: 15px
+              margin-bottom: 15px
+            div.radioGroup
+              margin-right: 0px
+            input
+              display: none
+            input[type=radio]:checked + label
+              background-color: $hbc-primary-color
+              border: 1px solid $hbc-primary-color
+              color: white
+              padding: 15px
+            input[type=checkbox]:checked + label
+              background-color: $hbc-secondary-color
+              border-radius: 25px
+              color: white
+              padding: 15px
+            input[type=radio]:not(:checked) + label
+              border: 1px solid $hbc-primary-color
+              padding: 15px
+            input[type=checkbox]:not(:checked) + label
+              border: 1px solid $hbc-secondary-color
+              border-radius: 25px
+              padding: 15px
+            label
+              cursor: pointer
+      div#searchBox
+        border: 1px solid $hbc-primary-color-rgba
+        width: 100%
+        input
+          background-color: $hbc-primary-color-rgba
+          border: 1px solid rgba(0, 39, 76, 0.4)
+          color: $hbc-primary-color
+          width: 100%
+        input::placeholder
+          color: $hbc-primary-color
+          opacity: 0.5
+          font-style: italic
+
+  .userCard
+    padding-bottom: 10px
+    h2
+      font-size: 22px
+      margin-bottom: 5px
+    .motto
+      font-style: italic
+    p
+      font-size: 14px
+      margin-bottom: 10px
+      margin-top: 10px
+
+  .singleCard
+    background-color: $hbc-primary-color
+    color: white
+
+  .roboHashImage
+    height: 200px
+
+  .flex-grow-1
+    flex-grow: 1
+
+  #cardList
+    display: flex
+    flex-direction: row
+    flex-wrap: wrap
+    margin-left: $mainSideMargins
+    margin-right: $mainSideMargins
+    height: 100%
+    width: auto
+    > div
+      padding: 10px
+      width: 50%
+      div.giverLabel, div.receiverLabel
+        background-color: $hbc-secondary-color
+        color: white
+        left: 0px
+        padding: 10px
+        position: absolute
+        top: 0px
+    div.cardPair
+      height: auto
+      div.receiverCard, div.giverCard
+        min-height: 375px
+      div.receiverCard
+        border: 1px solid $hbc-primary-color
+      div.giverCard
+        background-color: $hbc-primary-color
+        color: white
+
+// iPad / Tablets
+@media (min-width: 768px) and (max-width: 1024px)
+  .header
+    margin-left: 5vw
+    margin-top: 5vh
+    > h1
+      width: 75vw
+    > p
+      width: 75vw
+  
+  .toolbar
+    margin-left: 5vw
+    margin-right: 5vw
+    > div
+      margin: 0px 0px
+      > form
+        display: flex
+        flex-wrap: wrap
+        margin-bottom: 0px
+        > div
+          margin-bottom: 1vh
+
+  div.cardContent
+    div#cardList
+      margin-left: 5vw
+      margin-right: 5vw
+
+    #cardList
+      font-size: 2vw
+      margin-left: 5vw
+      margin-right: 5vw
+      > div
+        padding: 5px
+        width: 50%
+        div.giverLabel, div.receiverLabel
+          background-color: $hbc-secondary-color
+          color: white
+          left: 0px
+          padding: 10px
+          position: absolute
+          top: 0px
+      .cardPair
+        display: flex
+        flex-direction: row
+        height: 34vh
+        width: 100%
+        div.giverCard, div.receiverCard
+          min-height: initial
+          > img
+            height: 15vh
+          .userCard
+            padding: 3vw
+            > h2
+              font-size: 3vw
+            > p
+              font-size: 2vw

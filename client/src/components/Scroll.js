@@ -2,7 +2,7 @@ import React from 'react';
 
 const Scroll = (props) => {
   return (
-    <div style={{overflowY: 'scroll', height: '737px'}}>
+    <div className="cardContent">
         {props.children}
     </div>
   )
