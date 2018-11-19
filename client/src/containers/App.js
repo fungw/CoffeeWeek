@@ -97,15 +97,19 @@ class App extends Component {
     let filteredUsers = [];
     let userMatch;
 
-    for (let optionsCategory in filter) {
-      for (let option in filter[optionsCategory]) {
-        if (filter[optionsCategory][option]) {
-          for (let i=0; i<userList.length; i++) {
-            userMatch = userList[i].filter(user => {
-              return (user[optionsCategory] === option);
-            });
-            if ((userMatch.length !== 0) && (!filteredUsers.includes(userList[i]))) {
-              filteredUsers.push(userList[i]);
+    // filterCategory: department || location
+    for (let filterCategory in filter) {
+      // filterOption: engineering || dub
+      for (let filterOption in filter[filterCategory]) {
+        if (filterCategory === 'location') {
+          if (filter[filterCategory][filterOption]) {
+            for (let i=0; i<userList.length; i++) {
+              userMatch = userList[i].filter(user => {
+                return (user[filterCategory] === filterOption);
+              });
+              if ((userMatch.length !== 0) && (!filteredUsers.includes(userList[i]))) {
+                filteredUsers.push(userList[i]);
+              }
             }
           }
         }
@@ -119,19 +123,23 @@ class App extends Component {
     let filteredUsers = [];
     let userMatch;
 
-    for (let optionsCategory in filter) {
-      for (let option in filter[optionsCategory]) {
-        if (filter[optionsCategory][option]) {
-          userMatch = userList.filter(user => {
-            if (option === 'humanResources') {
-              return user[optionsCategory] === 'human resources';
-            } else {
-              return (user[optionsCategory] === option);
-            }
-          });
-          for (let i=0; i<userMatch.length; i++) {
-            if (!filteredUsers.includes(userList[i])) {
-              filteredUsers.push(userMatch[i]);
+    // filterCategory: department || location
+    for (let filterCategory in filter) {
+      // filterOption: engineering || dub
+      for (let filterOption in filter[filterCategory]) {
+        if (filterCategory === 'location') {
+          if (filter[filterCategory][filterOption]) {
+            userMatch = userList.filter(user => {
+              if (filterOption === 'humanResources') {
+                return user[filterCategory] === 'human resources';
+              } else {
+                return (user[filterCategory] === filterOption);
+              }
+            });
+            for (let i=0; i<userMatch.length; i++) {
+              if (!filteredUsers.includes(userList[i])) {
+                filteredUsers.push(userMatch[i]);
+              }
             }
           }
         }
