@@ -208,10 +208,12 @@ class App extends Component {
       :
       <div className='tc'>
         <Header weekDate={weekDate}></Header>
-        <Toolbar searchChange={this.onSearchChange} checkboxChange={this.onCheckboxChange} radioChange={this.onRadioChange} filter={filter}/>
-        <Scroll>
-          <CardList hbcUsers={filteredUsers} showFilter={showFilter}></CardList>
-        </Scroll>
+        <div className='contentContainer'>
+          <Toolbar searchChange={this.onSearchChange} checkboxChange={this.onCheckboxChange} radioChange={this.onRadioChange} filter={filter}/>
+          <Scroll>
+            <CardList hbcUsers={filteredUsers} showFilter={showFilter}></CardList>
+          </Scroll>
+        </div>
       </div>
     )
   }
