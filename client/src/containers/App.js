@@ -3,6 +3,7 @@ import CardList from '../components/CardList';
 import Header from '../components/Header';
 import Toolbar from '../components/Toolbar';
 import Scroll from '../components/Scroll';
+import _ from 'lodash';
 import './App.sass';
 
 class App extends Component {
@@ -119,33 +120,45 @@ class App extends Component {
   }
 
   filterShowOptionsAllUsers = (userList) => {
-    const { filter } = this.state;
+    let filterBy = [];
     let filteredUsers = [];
-    let userMatch;
 
-    // filterCategory: department || location
+    filterBy = this.optionsFilter();
+    if (filterBy === null) {
+      return userList;
+    }
+
+    _.each(filterBy, function(filter) {
+      _.each(userList, function(user) {
+        if (user[filter[0]] !== filter[1]) {
+          filteredUsers.push(user);
+        }
+      });
+    });
+
+    return filteredUsers;
+  }
+
+  optionsFilter = () => {
+    const { filter } = this.state;
+    let filterBy = [];
+
     for (let filterCategory in filter) {
-      // filterOption: engineering || dub
       for (let filterOption in filter[filterCategory]) {
-        if (filterCategory === 'location') {
-          if (filter[filterCategory][filterOption]) {
-            userMatch = userList.filter(user => {
-              if (filterOption === 'humanResources') {
-                return user[filterCategory] === 'human resources';
-              } else {
-                return (user[filterCategory] === filterOption);
-              }
-            });
-            for (let i=0; i<userMatch.length; i++) {
-              if (!filteredUsers.includes(userList[i])) {
-                filteredUsers.push(userMatch[i]);
-              }
-            }
+        if (filter[filterCategory][filterOption] === false) {
+          if (filterOption === 'humanResources') {
+            filterOption = 'human resources';
           }
+          filterBy.push([filterCategory, filterOption]);
         }
       }
     }
-    return filteredUsers;
+
+    if (filterBy.length === 0) {
+      return null;
+    } else {
+      return filterBy;
+    }
   }
 
   onCheckboxChange = (event) => {
