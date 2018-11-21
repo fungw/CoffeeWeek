@@ -93,49 +93,63 @@ class App extends Component {
     }
   }
 
-  filterShowOptions = (userList) => {
-    const { filter } = this.state;
-    let filteredUsers = [];
-    let userMatch;
-
-    // filterCategory: department || location
-    for (let filterCategory in filter) {
-      // filterOption: engineering || dub
-      for (let filterOption in filter[filterCategory]) {
-        if (filterCategory === 'location') {
-          if (filter[filterCategory][filterOption]) {
-            for (let i=0; i<userList.length; i++) {
-              userMatch = userList[i].filter(user => {
-                return (user[filterCategory] === filterOption);
-              });
-              if ((userMatch.length !== 0) && (!filteredUsers.includes(userList[i]))) {
-                filteredUsers.push(userList[i]);
-              }
-            }
-          }
-        }
+  filterPositiveKeys = () => {
+    let { filter } = this.state;
+    let positiveFilters = {};
+    let keys = Object.keys(filter);
+    _.each(keys, function(key) {
+      positiveFilters[key] = {};
+    });
+  
+    for (var key in filter) {
+      positiveFilters[key] = _.omitBy(filter[key], function(omitValue) {
+        return omitValue === false;
+      });
+      if (positiveFilters[key]['humanResources']) {
+        positiveFilters[key]['human resources'] = positiveFilters[key]['humanResources'];
       }
     }
+    return positiveFilters;
+  }
+
+  allUsersFilter = (userListSingle) => {
+    let filteredUsers = [];
+    let positiveFilters = this.filterPositiveKeys();
+    let userList = userListSingle;
+    let match;
+
+    userList.forEach(function(user) {
+      match = true;
+      for (var key in positiveFilters) {
+        if (!_.includes(Object.keys(positiveFilters[key]), user[key])) {
+          match = false;
+        }
+      }
+      if (match) {
+        filteredUsers.push(user);
+      }
+    });
     return filteredUsers;
   }
 
-  filterShowOptionsAllUsers = (userList) => {
-    let filterBy = [];
+  pairUserFilter = (userListPair) => {
     let filteredUsers = [];
-
-    filterBy = this.optionsFilter();
-    if (filterBy === null) {
-      return userList;
-    }
-
-    _.each(filterBy, function(filter) {
-      _.each(userList, function(user) {
-        if (user[filter[0]] !== filter[1]) {
-          filteredUsers.push(user);
+    let match;
+    let positiveFilters = this.filterPositiveKeys();
+    let userList = userListPair;
+    userList.forEach(function(userPair) {
+      match = true;
+      userPair.forEach(function(user) {
+        for (var key in positiveFilters) {
+          if (!_.includes(Object.keys(positiveFilters[key]), user[key])) {
+            match = false;
+          }
         }
       });
+      if (match) {
+        filteredUsers.push(userPair);
+      }
     });
-
     return filteredUsers;
   }
 
@@ -208,12 +222,15 @@ class App extends Component {
     const { filter, response, showFilter, weekDate } = this.state;
     let filteredUsers;
 
+    // console.log(JSON.stringify(filter));
+    // console.log(JSON.stringify(response));
+
     if (showFilter === this.SHOWCOFFEE) {
       filteredUsers = this.filterSearchUser();
-      filteredUsers = this.filterShowOptions(filteredUsers);
+      filteredUsers = this.pairUserFilter(filteredUsers);
     } else {
       filteredUsers = this.filterSearchAllUsers();
-      filteredUsers = this.filterShowOptionsAllUsers(filteredUsers);
+      filteredUsers = this.allUsersFilter(filteredUsers);
     }
 
     return (!response.length ? 
