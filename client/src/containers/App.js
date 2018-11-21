@@ -85,11 +85,15 @@ class App extends Component {
   }
 
   searchFilter = (searchQuery, user, searchField) => {
-    if ((searchQuery.length === 2) && (user[searchQuery[0]]) && (searchQuery[1])) {
-      return (user[searchQuery[0]].toLowerCase().includes(searchQuery[1].toLowerCase()));
-    } else {
-      return (user.name.first.toLowerCase().includes(searchField.toLowerCase())) 
-        || (user.name.last.toLowerCase().includes(searchField.toLowerCase()));
+    try {
+      if ((searchQuery.length === 2) && (user[searchQuery[0]]) && (searchQuery[1])) {
+        return (user[searchQuery[0]].toLowerCase().includes(searchQuery[1].toLowerCase()));
+      } else {
+        return (user.name.first.toLowerCase().includes(searchField.toLowerCase())) 
+          || (user.name.last.toLowerCase().includes(searchField.toLowerCase()));
+      }
+    } catch(e) {
+      console.log(e);
     }
   }
 
@@ -221,9 +225,6 @@ class App extends Component {
   render() {
     const { filter, response, showFilter, weekDate } = this.state;
     let filteredUsers;
-
-    // console.log(JSON.stringify(filter));
-    // console.log(JSON.stringify(response));
 
     if (showFilter === this.SHOWCOFFEE) {
       filteredUsers = this.filterSearchUser();

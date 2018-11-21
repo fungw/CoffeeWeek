@@ -4,20 +4,7 @@ const Toolbar = ({ checkboxChange, radioChange, searchChange, filter }) => {
   return (
     <div className="toolbar">
       <div className="flex flex-column flex-grow-1">
-        {/* <h3 className="flex-grow-1 b">Show filter:</h3> */}
         <form className="flex flex-row flex-grow-1">
-          {/* <div className="flex-grow-1">
-            <div className="flex flex-column">
-              <div className="flex-grow-1 tl">
-                <input className="mr2" type="radio" id="show-all" name="mainFilter" value="show-all" onChange={radioChange}/>
-                <label className="lh-copy">Show All Users</label>
-              </div>
-              <div className="flex-grow-1 tl">
-                <input className="mr2" type="radio" id="show-coffee" name="mainFilter" value="show-coffee" defaultChecked={true} onChange={radioChange}/>
-                <label className="lh-copy">Show Coffee List</label>
-              </div>
-            </div>
-          </div> */}
           <div className="flex-grow-1">
             <legend className="b tl">Show</legend>
             <div className="flex flex-row">
@@ -62,7 +49,7 @@ const Toolbar = ({ checkboxChange, radioChange, searchChange, filter }) => {
             <input
               className="pa3 ba flex-grow-1"
               type="search" 
-              placeholder="search for colleagues by name, department, office, phone or motto e.g. motto:emulation" 
+              placeholder="search colleagues by name or by department, location, phone, motto e.g. motto:decentralized" 
               onChange={searchChange}
             />
           </div>
