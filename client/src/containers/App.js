@@ -32,9 +32,6 @@ class App extends Component {
     }
   }
 
-  componentWillMount () {
-  }
-
   componentDidMount() {
     this.fetchCoffeeList()
       .then(res => this.setState({ response: res.coffeeUserList }))
@@ -108,6 +105,7 @@ class App extends Component {
 
   filterPositiveKeys = () => {
     let { filter } = this.state;
+    let filterCount = 0;
     let positiveFilters = {};
     let keys = Object.keys(filter);
     _.each(keys, function(key) {
@@ -134,7 +132,8 @@ class App extends Component {
     userList.forEach(function(user) {
       match = true;
       for (var key in positiveFilters) {
-        if (!_.includes(Object.keys(positiveFilters[key]), user[key])) {
+        if (!_.includes(Object.keys(positiveFilters[key]), user[key])
+          && (Object.keys(positiveFilters[key]).length != 0)) {
           match = false;
         }
       }
@@ -150,11 +149,13 @@ class App extends Component {
     let match;
     let positiveFilters = this.filterPositiveKeys();
     let userList = userListPair;
+
     userList.forEach(function(userPair) {
       match = true;
       userPair.forEach(function(user) {
         for (var key in positiveFilters) {
-          if (!_.includes(Object.keys(positiveFilters[key]), user[key])) {
+          if (!_.includes(Object.keys(positiveFilters[key]), user[key]) 
+            && (Object.keys(positiveFilters[key]).length != 0)) {
             match = false;
           }
         }
