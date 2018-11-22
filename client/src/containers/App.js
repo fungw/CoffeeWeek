@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import CardList from '../components/CardList';
 import Header from '../components/Header';
+import nprogress from 'nprogress';
+import 'nprogress/nprogress.css'
 import Toolbar from '../components/Toolbar';
 import Scroll from '../components/Scroll';
 import _ from 'lodash';
@@ -30,6 +32,9 @@ class App extends Component {
     }
   }
 
+  componentWillMount () {
+  }
+
   componentDidMount() {
     this.fetchCoffeeList()
       .then(res => this.setState({ response: res.coffeeUserList }))
@@ -40,16 +45,20 @@ class App extends Component {
   }
 
   fetchAllUsers = async () => {
+    nprogress.start();
     const response = await fetch('/api/fetchAllUsers');
     const body = await response.json();
     if (response.status !== 200) throw Error(body.message);
+    nprogress.done();
     return body;
   }
 
   fetchCoffeeList = async () => {
+    nprogress.start();
     const response = await fetch('/api/fetchCoffeeList');
     const body = await response.json();
     if (response.status !== 200) throw Error(body.message);
+    nprogress.done();
     return body;
   }
 
@@ -235,7 +244,7 @@ class App extends Component {
     }
 
     return (!response.length ? 
-      <h1>Loading</h1>
+      <h1 className='flex justify-center'>Loading</h1>
       :
       <div className='tc'>
         <Header weekDate={weekDate}></Header>

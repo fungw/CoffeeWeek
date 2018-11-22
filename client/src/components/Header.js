@@ -1,8 +1,10 @@
 import React from 'react';
 import hbcLogo from '../images/hbcLogo.svg';
+import NProgress from 'nprogress';
 
 const Header = ({ weekDate }) => {
   const [ week, year ] = weekDate.split('-');
+  NProgress.done();
   return (
     <div>
       <div className="headerLine">
