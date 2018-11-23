@@ -148,7 +148,10 @@ class App extends Component {
     }
 
     return (!response.length ? 
-      <h1 className="loading">Loading</h1>
+      <div className="app-div">
+        <Header weekDate={weekDate}></Header>
+        <h1 className="loading">Loading</h1>
+      </div>
       :
       <div className="app-div">
         <Header weekDate={weekDate}></Header>

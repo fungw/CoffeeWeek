@@ -2,6 +2,7 @@
   "name": "hbc",
   "version": "1.0.0",
   "description": "HBC Coffee Week React, NodeJS, SQLite on Heroku",
+  "authot": "Wesley Fung",
   "private": true,
   "dependencies": {
     "body-parser": "^1.18.3",
@@ -31,7 +32,7 @@
     "client": "cd client && yarn start",
     "server": "nodemon server.js",
     "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
-    "heroku-postbuild": "cd client/ && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
+    "heroku-postbuild": "mv client/build ../ && cd client/ && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
   },
   "eslintConfig": {
     "extends": "react-app"
