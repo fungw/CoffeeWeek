@@ -10,18 +10,21 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/api/fetchCoffeeList', (req, res) => {
+  // fetch users participating in the coffee week
   coffee.fetchCoffeeList(function(data) {
     return res.send({ coffeeUserList: data });
   })
 });
 
 app.get('/api/fetchAllUsers', (req, res) => {
+  // fetch all users
   coffee.fetchAllUsers(function(data) {
     return res.send({ allUsers: data });
   })
 });
 
 app.get('/api/fetchWeekDate', (req, res) => {
+  // fetch current week and year
   coffee.fetchWeekDate(function(data) {
     return res.send({ weekDate: data });
   })

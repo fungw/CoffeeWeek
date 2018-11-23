@@ -9,7 +9,7 @@ const sqlQueryWeekLocation = "SELECT * FROM USERS WHERE WEEKID='<%DATE%>'";
 const sqlInsert = 'INSERT INTO USERS VALUES(?, ?, ?, ?);'
 const sqlInsertAll = 'INSERT INTO USERSALL VALUES(?, ?);'
 
-// Coffee week partipating offices and locations
+// coffee week partipating offices and locations
 const PARTICIPANTS = [ { location: 'dub', department: 'engineering' }, { location: 'ny', department: 'engineering' }];
 
 /**
@@ -76,8 +76,8 @@ fetchWeekDate = function(callback) {
 
 /**
  * filterUsers()
- * - given coffee pairing
- * - return array of pairings with all information
+ * - given coffee pairing schema
+ * - return user pairings with all relevant information of the users
  */
 filterUsers = function(coffeePair, allUsers) {
   let filteredUser = [];
@@ -104,7 +104,8 @@ findUser = function(allUsersList, singleUser) {
 
 /**
  * generateCoffeeList()
- * - 
+ * - shuffle list of users
+ * - and assign the coffee pairings
  */
 generateCoffeeList = function(users) {
   users = users.users;
@@ -122,7 +123,7 @@ generateCoffeeList = function(users) {
 
 /**
  * getUsers()
- * - Query SQLite database for all users
+ * - query SQLite database for all users
  */
 getUsers = function() {
   return new Promise(function(resolve, reject) {
@@ -170,7 +171,7 @@ insertUsersDB = function(users) {
 
 /**
  * requestCoffeUsers()
- * - query API for users
+ * - query API for users information
  */
 requestCoffeeUsers = async function(query, callback) {
   fetch('https://hbc-frontend-challenge.hbccommon.private.hbc.com/coffee-week/users' + query)
@@ -178,6 +179,10 @@ requestCoffeeUsers = async function(query, callback) {
     .then( users => callback(users));
 }
 
+/**
+ * shuffle()
+ * - shuffle the given array
+ */
 shuffle = function(arr) {
   let randomIdx, randomUser, i;
   for (i=arr.length-1; i>0; i--) {

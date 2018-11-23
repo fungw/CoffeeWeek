@@ -1,18 +1,21 @@
 $hbc-primary-color: #001e3d;
 $hbc-primary-color-rgba: rgba(0, 39, 76, 0.2)
 $hbc-secondary-color: #265887;
-$headerHeight: 60px;
+
+$bannerHeight: 60px;
+$descriptionMargin: 15px;
 $mainSideMargins: 100px;
 
-.headerLine
+// Header
+div.banner
   background-color: $hbc-primary-color
   display: flex
   flex-direction: row
-  height: $headerHeight
-  > img
-    height: $headerHeight
+  height: $bannerHeight
+  > img#hbcLogo
+    height: $bannerHeight
     width: auto
-  > h1#weekIndicator
+  > h1#weekDisplay
     bottom: 0
     color: white
     font-size: 20px
@@ -25,83 +28,114 @@ $mainSideMargins: 100px;
     b
       font-weight: 600
 
-.header
-  margin-top: 15px
-  margin-left: 15px
-  margin-right: 15px
+div.descriptionContainer
+  display: flex
+  flex-direction: column
+  margin: $descriptionMargin $descriptionMargin
+  margin-bottom: 0px
+  text-align: left
   width: auto
   > h1
     font-family: Helvetica
+    font-size: 3rem
     font-weight: 600
     color: #001e3d
+    margin: 0px
     width: 100%
   > p
     line-height: 23px
 
-.contentContainer
+// Content (Toolbar, Cards)
+div.app-div
+  text-align: center
+
+div.loading
+  display: flex
+  justify-content: center
+
+div.contentContainer
   display: flex
   flex-direction: column-reverse
 
-.cardContent
-  overflow-y: scroll
+div.scrollContent
   height: 500px
+  overflow-y: scroll
 
+#nprogress .bar
+  height: 3px
+  background-color: green
+
+// Toolbar
 .toolbar
   bottom: 0
-  margin-left: 2vw
-  margin-right: 2vw
-  margin-top: 2vh
+  margin: 2vh 2vw
+  margin-bottom: 0px
   width: 96vw
   > div
+    display: flex
+    flex-direction: column
+    flex-grow: 1
     > form
+      display: flex
+      flex-direction: row
+      flex-grow: 1
       flex-wrap: wrap
-      margin-left: 5vw
       margin-bottom: 2vw
+      margin-left: 5vw
       > div
+        flex-grow: 1
         font-size: 2vw
         margin-bottom: 2vw
         legend
+          font-weight: bold
           margin-bottom: 2vw
+          text-align: left
         div
+          display: flex
+          flex-direction: row
           font-size: 2vw
-          div.checkboxGroup, div.radioGroup
-            margin-right: 2vw
-            margin-top: 2vw
-            margin-bottom: 2vw
+          div.checkboxGroup
+            margin: 2vw
+            margin-left: 0px
           div.radioGroup
-            margin-right: 0px
+            margin: 2vw 0px
           input
             display: none
-          input[type=radio]:checked + label
-            background-color: $hbc-primary-color
+            margin-right: 0.5rem
+          input[type=radio]:checked + label,
+          input[type=checkbox]:checked + label,
+          input[type=radio]:not(:checked) + label,
+          input[type=checkbox]:not(:checked) + label
             border: 1px solid $hbc-primary-color
             color: white
             padding: 2vw
+          input[type=radio]:checked + label
+            background-color: $hbc-primary-color
           input[type=checkbox]:checked + label
             background-color: $hbc-secondary-color
             border-radius: 25px
-            color: white
-            padding: 2vw
-          input[type=radio]:not(:checked) + label
-            border: 1px solid $hbc-primary-color
-            padding: 2vw
+          input[type=radio]:not(:checked) + label,
           input[type=checkbox]:not(:checked) + label
-            border: 1px solid $hbc-secondary-color
+            background-color: white
+            color: black
+          input[type=checkbox]:not(:checked) + label
             border-radius: 25px
-            padding: 2vw
           label
             cursor: pointer
+            line-height: 1.5
     div#searchBox
       border: 1px solid $hbc-primary-color-rgba
+      flex-grow: 1
       font-size: 2vw
-      margin-bottom: 5vw
-      margin-left: 5vw
-      margin-right: 5vw
+      margin: 5vw 5vw
+      margin-top: 0px
       width: auto
       input
         background-color: $hbc-primary-color-rgba
         border: 1px solid rgba(0, 39, 76, 0.4)
         color: $hbc-primary-color
+        flex-grow: 1
+        padding: 1rem
         width: 100%
       input::placeholder
         color: $hbc-primary-color
@@ -113,11 +147,10 @@ $mainSideMargins: 100px;
   flex-wrap: wrap
   flex-direction: row
   font-size: 10px
-  margin-left: 15px
-  margin-right: 15px
+  margin: 0px 15px
+
   > div
     padding: 5px
-    width: 50%
     div.giverLabel, div.receiverLabel
       background-color: $hbc-secondary-color
       color: white
@@ -126,25 +159,31 @@ $mainSideMargins: 100px;
       position: absolute
       top: 0px
 
-  .cardPair
+  > div.cardPair
     display: flex
     flex-direction: row
     width: 100%
+    > div.giverCard, div.receiverCard
+      float: left
+      width: 50%
+
+  > div.singleCard
+    float: left
+    width: 50%
     
-  div.receiverCard
-    border: 1px solid $hbc-primary-color
   div.giverCard, div.singleCard
     background-color: $hbc-primary-color
     color: white
+  div.receiverCard
+    border: 1px solid $hbc-primary-color
   
   div.giverCard, div.receiverCard, div.singleCard
     min-height: initial
     > img
-      height: 7vh
-    .userCard
-      padding: 3vw
+      height: 12vh
+    div.userCard
       padding-bottom: 10px
-      .motto
+      p.motto
         font-style: italic
       > h2
         margin-bottom: 5px
@@ -153,10 +192,6 @@ $mainSideMargins: 100px;
         font-size: 2vw
         margin-bottom: 10px
         margin-top: 10px
-
-#nprogress .bar
-  height: 3px
-  background-color: green
   
 // Phones
 @media only screen and (max-width: 600px)
@@ -166,7 +201,7 @@ $mainSideMargins: 100px;
 
 // iPad / Tablets
 @media (min-width: 430px) and (max-width: 1024px)
-  div.cardContent
+  div.scrollContent
     height: 800px
 
   div.giverLabel, div.receiverLabel
@@ -174,13 +209,13 @@ $mainSideMargins: 100px;
 
 // Desktop
 @media (min-width: 1024px)
-  .headerLine
-    > img
+  div.banner
+    > img#hbcLogo
       margin-left: 100px
-    > h1#weekIndicator
+    > h1#weekDisplay
       margin-right: 100px
   
-  .header
+  div.descriptionContainer
     margin-left: $mainSideMargins
     margin-right: $mainSideMargins
     margin-top: $mainSideMargins
@@ -191,18 +226,17 @@ $mainSideMargins: 100px;
       b
         color: $hbc-primary-color
 
-  .contentContainer
+  div.contentContainer
     flex-direction: column
 
-  div.cardContent
+  div.scrollContent
     height: 800px
 
   .toolbar
     margin: 30px 0
     width: 100%
     > div
-      margin-left: 100px
-      margin-right: 100px
+      margin: 0px 100px
       form
         margin-bottom: 25px
         margin-left: 0px
@@ -213,22 +247,14 @@ $mainSideMargins: 100px;
             margin-bottom: 10px
           div
             div.checkboxGroup, div.radioGroup
-              margin-right: 15px
-              margin-top: 7px
-              margin-bottom: 15px
+              margin: 7px 15px 15px 0px
             div.radioGroup
               margin-right: 0px
             > input
               display: none
-            input[type=radio]:checked + label
-              font-size: initial
-              padding: 15px
-            input[type=checkbox]:checked + label
-              font-size: initial
-              padding: 15px
-            input[type=radio]:not(:checked) + label
-              font-size: initial
-              padding: 15px
+            input[type=radio]:checked + label,
+            input[type=checkbox]:checked + label,
+            input[type=radio]:not(:checked) + label,
             input[type=checkbox]:not(:checked) + label
               font-size: initial
               padding: 15px
@@ -240,11 +266,9 @@ $mainSideMargins: 100px;
           font-size: initial
           width: 100%
 
-  #cardList 
-    margin-left: $mainSideMargins
-    margin-right: $mainSideMargins
-    > .cardPair
-      padding: 5px
+  #cardList
+    margin: 0px $mainSideMargins
+    > div.cardPair
       width: 50%
       > div 
         > img
@@ -257,7 +281,7 @@ $mainSideMargins: 100px;
         height: 200px
 
     div.receiverCard, div.giverCard, div.singleCard
-      > .userCard
+      > div.userCard
         padding: 0px 0px 10px 0px
         h2
           font-size: 22px
@@ -266,5 +290,4 @@ $mainSideMargins: 100px;
           font-style: italic
         p
           font-size: 14px
-          margin-bottom: 10px
-          margin-top: 10px
+          margin: 10px 0px

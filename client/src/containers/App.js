@@ -66,127 +66,30 @@ class App extends Component {
     return body;
   }
 
-  filterSearchAllUsers = () => {
-    const { searchField, response } = this.state;
-    let searchQuery = searchField.split(':');
-    return response.filter(user => {
-      return this.searchFilter(searchQuery, user, searchField);
-    });
-  }
-
-  filterSearchUser = () => {
-    const { searchField, response } = this.state;
-    let filteredUsers = [];
-    let searchQuery = searchField.split(':');
-    let userPair;
-    for (let i=0; i<response.length; i++) {
-      userPair = response[i].filter(user => {
-        return this.searchFilter(searchQuery, user, searchField);
-      });
-      if (userPair.length !== 0) {
-        filteredUsers.push(response[i]);
-      }
-    }
-    return filteredUsers;
-  }
-
-  searchFilter = (searchQuery, user, searchField) => {
-    try {
-      if ((searchQuery.length === 2) && (user[searchQuery[0]]) && (searchQuery[1])) {
-        return (user[searchQuery[0]].toLowerCase().includes(searchQuery[1].toLowerCase()));
-      } else {
-        return (user.name.first.toLowerCase().includes(searchField.toLowerCase())) 
-          || (user.name.last.toLowerCase().includes(searchField.toLowerCase()));
-      }
-    } catch(e) {
-      console.log(e);
-    }
-  }
-
-  filterPositiveKeys = () => {
+  /**
+   * filterOptions()
+   * - filter selection options that are selected
+   */
+  filterOptions = () => {
     let { filter } = this.state;
-    let filterCount = 0;
     let positiveFilters = {};
     let keys = Object.keys(filter);
+    // construct empty clone of filters
     _.each(keys, function(key) {
       positiveFilters[key] = {};
     });
   
     for (var key in filter) {
+      // omit fitters that are false
       positiveFilters[key] = _.omitBy(filter[key], function(omitValue) {
         return omitValue === false;
       });
+      // slight amendment to humanResources string
       if (positiveFilters[key]['humanResources']) {
         positiveFilters[key]['human resources'] = positiveFilters[key]['humanResources'];
       }
     }
     return positiveFilters;
-  }
-
-  allUsersFilter = (userListSingle) => {
-    let filteredUsers = [];
-    let positiveFilters = this.filterPositiveKeys();
-    let userList = userListSingle;
-    let match;
-
-    userList.forEach(function(user) {
-      match = true;
-      for (var key in positiveFilters) {
-        if (!_.includes(Object.keys(positiveFilters[key]), user[key])
-          && (Object.keys(positiveFilters[key]).length != 0)) {
-          match = false;
-        }
-      }
-      if (match) {
-        filteredUsers.push(user);
-      }
-    });
-    return filteredUsers;
-  }
-
-  pairUserFilter = (userListPair) => {
-    let filteredUsers = [];
-    let match;
-    let positiveFilters = this.filterPositiveKeys();
-    let userList = userListPair;
-
-    userList.forEach(function(userPair) {
-      match = true;
-      userPair.forEach(function(user) {
-        for (var key in positiveFilters) {
-          if (!_.includes(Object.keys(positiveFilters[key]), user[key]) 
-            && (Object.keys(positiveFilters[key]).length != 0)) {
-            match = false;
-          }
-        }
-      });
-      if (match) {
-        filteredUsers.push(userPair);
-      }
-    });
-    return filteredUsers;
-  }
-
-  optionsFilter = () => {
-    const { filter } = this.state;
-    let filterBy = [];
-
-    for (let filterCategory in filter) {
-      for (let filterOption in filter[filterCategory]) {
-        if (filter[filterCategory][filterOption] === false) {
-          if (filterOption === 'humanResources') {
-            filterOption = 'human resources';
-          }
-          filterBy.push([filterCategory, filterOption]);
-        }
-      }
-    }
-
-    if (filterBy.length === 0) {
-      return null;
-    } else {
-      return filterBy;
-    }
   }
 
   onCheckboxChange = (event) => {
@@ -237,19 +140,19 @@ class App extends Component {
     let filteredUsers;
 
     if (showFilter === this.SHOWCOFFEE) {
-      filteredUsers = this.filterSearchUser();
-      filteredUsers = this.pairUserFilter(filteredUsers);
+      filteredUsers = this.pairSearchFilter();
+      filteredUsers = this.pairFilterOptions(filteredUsers);
     } else {
-      filteredUsers = this.filterSearchAllUsers();
-      filteredUsers = this.allUsersFilter(filteredUsers);
+      filteredUsers = this.userSearchFilter();
+      filteredUsers = this.userFilterOptions(filteredUsers);
     }
 
     return (!response.length ? 
-      <h1 className='flex justify-center'>Loading</h1>
+      <h1 className="loading">Loading</h1>
       :
-      <div className='tc'>
+      <div className="app-div">
         <Header weekDate={weekDate}></Header>
-        <div className='contentContainer'>
+        <div className="contentContainer">
           <Toolbar searchChange={this.onSearchChange} checkboxChange={this.onCheckboxChange} radioChange={this.onRadioChange} filter={filter}/>
           <Scroll>
             <CardList hbcUsers={filteredUsers} showFilter={showFilter}></CardList>
@@ -257,6 +160,113 @@ class App extends Component {
         </div>
       </div>
     )
+  }
+
+  /**
+   * searchBoxParse()
+   * - parse the query in the search box
+   */
+  searchBoxParse = (searchQuery, user, searchField) => {
+    try {
+      if ((searchQuery.length === 2) && (user[searchQuery[0]]) && (searchQuery[1])) {
+        return (user[searchQuery[0]].toLowerCase().includes(searchQuery[1].toLowerCase()));
+      } else {
+        return (user.name.first.toLowerCase().includes(searchField.toLowerCase())) 
+          || (user.name.last.toLowerCase().includes(searchField.toLowerCase()));
+      }
+    } catch(e) {
+      console.log(e);
+    }
+  }
+
+  /**
+   * pairFilterOptions
+   * - filter coffee pairings from selection options in toolbar
+   */
+  pairFilterOptions = (userListPair) => {
+    let filteredUsers = [];
+    let match;
+    let positiveFilters = this.filterOptions();
+    let userList = userListPair;
+
+    userList.forEach(function(userPair) {
+      match = true;
+      userPair.forEach(function(user) {
+        for (var key in positiveFilters) {
+          // if either of users' information matches the filters selected, match.
+          // also match when either of the filter groups (location/department)
+          // are empty as we don't want to return nothing
+          if (!_.includes(Object.keys(positiveFilters[key]), user[key]) 
+            && (Object.keys(positiveFilters[key]).length !== 0)) {
+            match = false;
+          }
+        }
+      });
+      if (match) {
+        filteredUsers.push(userPair);
+      }
+    });
+    return filteredUsers;
+  }
+
+  /**
+   * pairSearchFilter()
+   * - filter coffee pairings from query in search box
+   */
+  pairSearchFilter = () => {
+    const { searchField, response } = this.state;
+    let filteredUsers = [];
+    let searchQuery = searchField.split(':');
+    let userPair;
+    for (let i=0; i<response.length; i++) {
+      userPair = response[i].filter(user => {
+        return this.searchBoxParse(searchQuery, user, searchField);
+      });
+      if (userPair.length !== 0) {
+        filteredUsers.push(response[i]);
+      }
+    }
+    return filteredUsers;
+  }
+
+  /**
+   * userFilterOptions()
+   * - filter all users from the selection options in toolbar
+   */
+  userFilterOptions = (userListSingle) => {
+    let filteredUsers = [];
+    let positiveFilters = this.filterOptions();
+    let userList = userListSingle;
+    let match;
+
+    userList.forEach(function(user) {
+      match = true;
+      for (var key in positiveFilters) {
+        // if users' information matches the filters selected, match.
+        // also match when either of the filter groups (location/department)
+        // are empty as we don't want to return nothing
+        if (!_.includes(Object.keys(positiveFilters[key]), user[key])
+          && (Object.keys(positiveFilters[key]).length !== 0)) {
+          match = false;
+        }
+      }
+      if (match) {
+        filteredUsers.push(user);
+      }
+    });
+    return filteredUsers;
+  }
+
+  /**
+   * userSearchFilter()
+   * - filter all users from query in search box
+   */
+  userSearchFilter = () => {
+    const { searchField, response } = this.state;
+    let searchQuery = searchField.split(':');
+    return response.filter(user => {
+      return this.searchBoxParse(searchQuery, user, searchField);
+    });
   }
 }
 
