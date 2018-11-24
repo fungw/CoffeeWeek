@@ -1,0 +1,10 @@
+{  
+  "department":{  
+     "engineering":true,
+     "humanResources":false
+  },
+  "location":{  
+     "dub":true,
+     "ny":true
+  }
+}
