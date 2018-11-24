@@ -27,4 +27,12 @@ yarn dev
 ## Deployment
 App deployed on [heroku](https://wfung.herokuapp.com/).
 
+## Testing
+Tests can be found per component.
+
+```
+cd client
+npm test
+```
+
 -Wesley Fung
