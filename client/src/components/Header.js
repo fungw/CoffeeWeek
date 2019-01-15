@@ -1,19 +1,19 @@
 import React from 'react';
-import hbcLogo from '../images/hbcLogo.svg';
+// import hbcLogo from '../images/hbcLogo.svg';
 
 const Header = ({ weekDate }) => {
   const [ week, year ] = weekDate.split('-');
   return (
     <div>
       <div className="banner">
-        <img id="hbcLogo" alt="HBC Logo" src={hbcLogo}/>
+        {/* <img id="hbcLogo" alt="HBC Logo" src={hbcLogo}/> */}
         <h1 id="weekDisplay"><b>Week {week}</b> {year}</h1>
       </div>
       <div className="descriptionContainer">
-        <h1>HBC Coffee Week</h1>
+        <h1>Coffee Week</h1>
         <p>
           All of you can't start the day without a good coffee. 
-          We create <b>HBC coffee sharing service</b>, a way to create new bonds with your collegues in your office.
+          We create <b>coffee sharing service</b>, a way to create new bonds with your collegues in your office.
           Each week you can surprise your work colleague with a coffee (and receive one as well!).
         </p>
         <p>

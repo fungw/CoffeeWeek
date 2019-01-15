@@ -4,14 +4,17 @@ import CardSingle from './CardSingle';
 import _ from 'lodash';
 
 const CardList = ({ hbcUsers, showFilter }) => {
+  console.log(hbcUsers);
   return (
       <div id="cardList">
         {showFilter === 'SHOW-COFFEE' ? 
           hbcUsers.map((pairing, i) => {
             pairing[0].locationPretty = prettifyLocationName(pairing[0].location);
             pairing[1].locationPretty = prettifyLocationName(pairing[1].location);
+            pairing[0].email = pairing[0].email.replace('hbc', 'hotmail');
             pairing[0].departmentPretty = toCamelCase(pairing[0].department);
             pairing[1].departmentPretty = toCamelCase(pairing[1].department);
+            pairing[1].email = pairing[1].email.replace('hbc', 'hotmail');
             return (
               <CardPair giver={pairing[0]} key={i} receiver={pairing[1]}/>
             )
@@ -19,6 +22,7 @@ const CardList = ({ hbcUsers, showFilter }) => {
           hbcUsers.map((user, i) => {
             user.locationPretty = prettifyLocationName(user.location);
             user.departmentPretty = toCamelCase(user.department);
+            user.email = user.email.replace('hbc', 'hotmail');
             return (
               <CardSingle hbcUser={user} key={i}/>
             )
