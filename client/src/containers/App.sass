@@ -1,6 +1,6 @@
-$hbc-primary-color: #001e3d;
-$hbc-primary-color-rgba: rgba(0, 39, 76, 0.2)
-$hbc-secondary-color: #265887;
+$primary-color: #001e3d;
+$primary-color-rgba: rgba(0, 39, 76, 0.2)
+$secondary-color: #265887;
 
 $bannerHeight: 60px;
 $descriptionMargin: 15px;
@@ -8,13 +8,10 @@ $mainSideMargins: 100px;
 
 // Header
 div.banner
-  background-color: $hbc-primary-color
+  background-color: $primary-color
   display: flex
   flex-direction: row
   height: $bannerHeight
-  > img#hbcLogo
-    height: $bannerHeight
-    width: auto
   > h1#weekDisplay
     bottom: 0
     color: white
@@ -107,13 +104,13 @@ div.scrollContent
           input[type=checkbox]:checked + label,
           input[type=radio]:not(:checked) + label,
           input[type=checkbox]:not(:checked) + label
-            border: 1px solid $hbc-primary-color
+            border: 1px solid $primary-color
             color: white
             padding: 2vw
           input[type=radio]:checked + label
-            background-color: $hbc-primary-color
+            background-color: $primary-color
           input[type=checkbox]:checked + label
-            background-color: $hbc-secondary-color
+            background-color: $secondary-color
             border-radius: 25px
           input[type=radio]:not(:checked) + label,
           input[type=checkbox]:not(:checked) + label
@@ -125,21 +122,21 @@ div.scrollContent
             cursor: pointer
             line-height: 1.5
     div#searchBox
-      border: 1px solid $hbc-primary-color-rgba
+      border: 1px solid $primary-color-rgba
       flex-grow: 1
       font-size: 2vw
       margin: 5vw 5vw
       margin-top: 0px
       width: auto
       input
-        background-color: $hbc-primary-color-rgba
+        background-color: $primary-color-rgba
         border: 1px solid rgba(0, 39, 76, 0.4)
-        color: $hbc-primary-color
+        color: $primary-color
         flex-grow: 1
         padding: 1rem
         width: 100%
       input::placeholder
-        color: $hbc-primary-color
+        color: $primary-color
         opacity: 0.5
         font-style: italic
 
@@ -153,7 +150,7 @@ div.scrollContent
   > div
     padding: 5px
     div.giverLabel, div.receiverLabel
-      background-color: $hbc-secondary-color
+      background-color: $secondary-color
       color: white
       left: 0px
       padding: 5px
@@ -173,10 +170,10 @@ div.scrollContent
     width: 50%
     
   div.giverCard, div.singleCard
-    background-color: $hbc-primary-color
+    background-color: $primary-color
     color: white
   div.receiverCard
-    border: 1px solid $hbc-primary-color
+    border: 1px solid $primary-color
   
   div.giverCard, div.receiverCard, div.singleCard
     min-height: initial
@@ -211,8 +208,6 @@ div.scrollContent
 // Desktop
 @media (min-width: 1024px)
   div.banner
-    > img#hbcLogo
-      margin-left: 100px
     > h1#weekDisplay
       margin-right: 100px
   
@@ -225,7 +220,7 @@ div.scrollContent
       margin-bottom: 0px
       width: 75%
       b
-        color: $hbc-primary-color
+        color: $primary-color
 
   div.contentContainer
     flex-direction: column

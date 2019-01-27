@@ -1,3 +1,4 @@
+const coffeeUsersList = require('./coffeeUsers.json');
 const fetch = require('node-fetch');
 const sqlite3 = require('sqlite3').verbose();
 const weekDate = require('./weekDate.js'); // ability to get week number of year
@@ -32,7 +33,7 @@ fetchAllUsers = function(callback) {
 /**
  * fetchCoffeeList()
  * - check database for entries for this week
- * - if not, fetch from HBC API and populate database with coffee pairings
+ * - if not, fetch from coffee users list JSON and populate database with coffee pairings
  * - else return coffee pairings from database
  */
 fetchCoffeeList = function(callback) {
@@ -174,9 +175,7 @@ insertUsersDB = function(users) {
  * - query API for users information
  */
 requestCoffeeUsers = async function(query, callback) {
-  fetch('https://hbc-frontend-challenge.hbccommon.private.hbc.com/coffee-week/users' + query)
-    .then( response => response.json())
-    .then( users => callback(users));
+  return callback(coffeeUsersList);
 }
 
 /**

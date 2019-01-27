@@ -158,7 +158,7 @@ class App extends Component {
         <div className="contentContainer">
           <Toolbar searchChange={this.onSearchChange} checkboxChange={this.onCheckboxChange} radioChange={this.onRadioChange} filter={filter}/>
           <Scroll>
-            <CardList hbcUsers={filteredUsers} showFilter={showFilter}></CardList>
+            <CardList coffeeUsers={filteredUsers} showFilter={showFilter}></CardList>
           </Scroll>
         </div>
       </div>

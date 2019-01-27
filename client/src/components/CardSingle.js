@@ -1,14 +1,15 @@
 import React from 'react';
 
-const CardSingle = ({ hbcUser }) => {
+const CardSingle = ({ coffeeUser }) => {
+  console.log(coffeeUser);
   return (
     <div className="grow singleCard">
-        <img className="roboHashImage" alt="hbcUser" src={`https://robohash.org/${hbcUser.guid}?200x200`}/>
+        <img className="roboHashImage" alt="user" src={`https://robohash.org/${coffeeUser.guid}?200x200`}/>
         <div className="userCard">
-          <h2>{hbcUser.name.first + " " + hbcUser.name.last}</h2>
-          <p className="motto">{hbcUser.motto}</p>
-          <p>{hbcUser.email}</p>
-          <p>{hbcUser.locationPretty} - {hbcUser.departmentPretty}</p>
+          <h2>{coffeeUser.name.first + " " + coffeeUser.name.last}</h2>
+          <p className="motto">{coffeeUser.motto}</p>
+          <p>{coffeeUser.email}</p>
+          <p>{coffeeUser.locationPretty} - {coffeeUser.departmentPretty}</p>
         </div>
       </div>
   )

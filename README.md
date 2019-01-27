@@ -1,6 +1,6 @@
-# HBC Coffee Challenge | React NodeJS SQLite
+# Coffee Week | React NodeJS SQLite
 
-> HBC Coffee Week Challenge delivered by React front-end, served by NodeJS back-end and storage via SQLite database.
+> Coffee Week delivered by React front-end, served by NodeJS back-end and storage via SQLite database.
 
 ## Usage
 

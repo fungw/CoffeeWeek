@@ -17,7 +17,7 @@ describe("CardSingle User", () => {
 
   beforeEach(() => {
     props = {
-      hbcUser: singleUser
+      users: singleUser
     };
     mountedApp = undefined;
   });

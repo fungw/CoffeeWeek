@@ -18,7 +18,7 @@ describe("CardList All Users", () => {
 
   beforeEach(() => {
     props = {
-      hbcUsers: Users,
+      users: Users,
       showFilter: 'SHOW-ALL'
     };
     mountedApp = undefined;
@@ -48,7 +48,7 @@ describe("CardList Coffee Pairings", () => {
 
   beforeEach(() => {
     props = {
-      hbcUsers: CoffeePairings,
+      users: CoffeePairings,
       showFilter: 'SHOW-COFFEE'
     };
     mountedApp = undefined;

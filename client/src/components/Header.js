@@ -1,12 +1,10 @@
 import React from 'react';
-// import hbcLogo from '../images/hbcLogo.svg';
 
 const Header = ({ weekDate }) => {
   const [ week, year ] = weekDate.split('-');
   return (
     <div>
       <div className="banner">
-        {/* <img id="hbcLogo" alt="HBC Logo" src={hbcLogo}/> */}
         <h1 id="weekDisplay"><b>Week {week}</b> {year}</h1>
       </div>
       <div className="descriptionContainer">
