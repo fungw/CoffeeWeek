@@ -1,6 +1,6 @@
 # Coffee Week | React NodeJS SQLite
 
-> Coffee Week delivered by React front-end, served by NodeJS back-end and storage via SQLite database.
+☕️ Coffee Week delivered by React front-end, served by NodeJS back-end and storage via SQLite database.
 
 ## Usage
 
