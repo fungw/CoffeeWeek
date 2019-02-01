@@ -34,5 +34,3 @@ Tests can be found per component.
 cd client
 npm test
 ```
-
--Wesley Fung
